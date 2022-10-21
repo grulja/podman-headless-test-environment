@@ -1,0 +1,7 @@
+FROM fedora:37
+
+RUN dnf update -y
+RUN dnf install mutter dbus-x11 nano -y
+
+ENV XDG_RUNTIME_DIR /run/user/0
+ENV XDG_CURRENT_DESKTOP GNOME

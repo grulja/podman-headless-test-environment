@@ -1,0 +1,9 @@
+# Create runtime dir
+mkdir -p /run/user/0
+
+# Run DBus session
+export $(dbus-launch)
+
+# Run Mutter
+mutter --wayland --headless --virtual-monitor 1280x720 --no-x11 &
+
