@@ -1,0 +1,10 @@
+FROM fedora:37
+
+RUN dnf update -y
+RUN dnf install nano dbus-x11 xdg-desktop-portal xdg-desktop-portal-gnome -y
+
+ENV XDG_CURRENT_DESKTOP GNOME
+ARG DBUS_SOCKET_PATH
+ENV DBUS_SOCKET_PATH unix:path=$DBUS_SOCKET_PATH
+
+#CMD dbus-run-session -- bash
