@@ -1,7 +1,9 @@
 FROM fedora:37
 
 RUN dnf update -y
-RUN dnf install mutter dbus-x11 nano -y
+RUN dnf install mutter dbus-x11 nano mesa-libgbm mesa-libGL mesa-libEGL mesa-dri-drivers -y
 
-ENV XDG_RUNTIME_DIR /run/user/0
+ENV XDG_RUNTIME_DIR /tmp/run
 ENV XDG_CURRENT_DESKTOP GNOME
+ARG DBUS_SOCKET_PATH
+ENV DBUS_SOCKET_PATH unix:path=$DBUS_SOCKET_PATH

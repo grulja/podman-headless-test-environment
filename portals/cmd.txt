@@ -2,4 +2,7 @@
 export DBUS_SESSION_BUS_ADDRESS=$DBUS_SOCKET_PATH/bus-$(echo $DISPLAY | tail -c 2)
 
 # Run DBus session
-dbus-daemon --session --address=$DBUS_SESSION_BUS_ADDRESS
+dbus-daemon --session --address=$DBUS_SESSION_BUS_ADDRESS --fork
+
+# Verify DBus session
+dbus-send --session --dest=org.freedesktop.DBus --type=method_call --print-reply /org/freedesktop/DBus org.freedesktop.DBus.ListNames
