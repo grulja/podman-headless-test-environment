@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  xdg-desktop-portal:
+    container_name: fedora-37-portals
+    image: "localhost/fedora-37-portals:latest"
+    restart: always
+    env_file:
+      - ./variables.env
+    environment:
+      - WAYLAND_DISPLAY
+      - DISPLAY
+    volumes:
+      - /tmp/bus:/tmp/bus:z
+      - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/run/wayland-0:z
+      - ${XDG_RUNTIME_DIR}/pipewire-0:/tmp/run/pipewire-0:z
+    security_opt:
+      - label=type:container_runtime_t
+    # FIXME
+    # https://github.com/containers/podman-compose/issues/554
+    pid: host
+    command: ["/usr/local/bin/cmd.sh"]
+
+  mutter:
+    container_name: fedora-37-mutter
+    image: "localhost/fedora-37-headless-mutter:latest"
+    restart: always
+    devices:
+      - /dev/dri
+    env_file:
+      - ./variables.env
+    environment:
+      - WAYLAND_DISPLAY
+      - DISPLAY
+    volumes:
+      - /tmp/bus:/tmp/bus:z
+      - ${XDG_RUNTIME_DIR}/pipewire-0:/tmp/run/pipewire-0:z
+      - /run/udev/tags:/run/udev/tags:ro
+    security_opt:
+      - label=type:container_runtime_t
+    command: ["/usr/local/bin/cmd.sh"]
+

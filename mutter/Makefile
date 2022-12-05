@@ -1,7 +1,9 @@
 DBUS_SOCKET_PATH ?= "/tmp/bus"
 TAG := "fedora-37-headless-mutter"
 
-all: build create start attach
+all: build
+
+create: create
 
 run: start attach
 
